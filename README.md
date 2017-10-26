@@ -16,4 +16,12 @@ License: Written by Micah Frank under GPLv3
 
 Disclaimer: This software is not thoroughly tested. Although it works fine on my system, Csound can have "temperamental" moments. Please try it out first with your speakers/headphones turned down.
 
+To do
+
+• offline rendering
+• triplets and 32nd notes
+• rolls
+• more accurate density control 
+• option to create more repetitive beats
+
 ![Alt text](https://github.com/chronopolis5k/Beatfox/blob/master/Media/chronopolis5k.JPG?raw=true "Sketching out Beatfox")
