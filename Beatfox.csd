@@ -58,7 +58,7 @@ if ktime > 60/gibpm*giSteps then ;reset when elapsed time is greater than steps
 	reinit reset
 endif
 
-prints "sequence length is %f seconds\n", giSequenceLength
+;prints "sequence length is %f seconds\n", giSequenceLength
 
 ;all instruments must be initialized so that an even can be placed therein.
 
