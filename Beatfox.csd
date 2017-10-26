@@ -45,7 +45,7 @@ instr globals, 1
 reset:
 prints "new sequence starting...\n"
 
-girandomBPM random 75, 200 ;define bpm range - min, max
+girandomBPM random 75, 160 ;define bpm range - min, max
 gibpm = int(girandomBPM)
 giBeatsPerSec = gibpm/60 ;quarter notes per sec
 giBeatDuration = 60/gibpm ;quarter note length (in seconds)
