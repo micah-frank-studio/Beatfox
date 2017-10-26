@@ -79,7 +79,7 @@ giatklvl random 0.4, 0.8
 ;;snare values generation
 gisnarefreq random 100, 500
 gioscfreq random 500, 1000
-gisnaredur random 3.0, 0.1 
+gisnaredur random 1.0, 0.1 
 gisnareatk random gisnaredur*0.25, 0.15
 gisnarefiltinit random 5000, 10000
 gisnarefiltsus random 1000, 500
@@ -146,7 +146,7 @@ MixerSend afilteredsig, 3, 97, 0
 endin
 
 instr snare2, 4
-ifn  = gi7
+ifn  = gi1
 irandomAmp random 0.1, 0.5
 
 iSnare2_rand1 random 0, 1
