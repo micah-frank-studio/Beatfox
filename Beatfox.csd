@@ -28,11 +28,19 @@ gi9 ftgen 9,0,129,7,-1,128,1 ;actually natural
 gi10 ftgen     0, 0, 2^10, 10, 1, 0, -1/9, 0, 1/25, 0, -1/49, 0, 1/81
 gi11 ftgen     0, 0, 2^10, 10, 1, 1, 1, 1, 1, 1, 1, 1, 1
 
-;;set mixer levels (0 to 0.9 last parameter)
+;;set mixer levels (0 to 0.9 on last parameter)
 MixerSetLevel 2, 97, 0.8 ;kick
 MixerSetLevel 3, 97, 0.8 ;snare 1
 MixerSetLevel 4, 97, 0.6 ;snare 2 (tuned percussion)
 MixerSetLevel 5, 97, 0.4 ;hat
+
+;grid resolution
+giMasterGridRes = 4 ;(2=8th notes, 4=16th notes, 8=32nd notes, etc)
+
+;densities
+giKickdensity random 0.7,0.99  ;0 is more dense, 1 is less - default 0.7,0.9
+giSnaredensity random 0.6,0.9  ;0 is more dense, 1 is less - default 0.6,0.9
+giHatsdensity random 0.3,0.3  ;0 is more dense, 1 is less - default 0.3,0.7
 
 girandomBPM init 0
 gibpm init 0
@@ -89,20 +97,15 @@ gisnpenvdur random gisnaredur*.25, gisnaredur ;pith env duration
 giSnaremeth random 0.2, 0.9
 
 ;;hats values generation
-gihatsfreq1 random 6000, 10000
-gihatsfreq2 random 10000, 20000
-gihatsdecayshort random 0.01, 0.2
-gihatsdecaylong random 0.4, 1
+gihatsfreq1 random 100, 500
+gihatsfreq2 random 1000, 10000
+gihatsdecayshort random 0.01, 0.1
+gihatsdecaylong random 0.4, 0.3
 
 ;does the hi-hat modulate?
 gihatmod random 0,1
 ;pick hi-hat bpf freq
 gihatbpf random 100, 5000
-
-;;densities
-giKickdensity random 0.7,0.9  ;0 is more dense, 1 is less
-giSnaredensity random 0.6,0.9  ;0 is more dense, 1 is less
-giHatsdensity random 0.3,0.7  ;0 is more dense, 1 is less
 
 endin
 
@@ -174,7 +177,7 @@ irandomAmp random 0.0, 0.3
 iclosedOrOpen random 0,1
 ihatdecay = iclosedOrOpen > 0.9 ? gihatsdecaylong : gihatsdecayshort
 ifn  = gi8 ;square wave
-kamp expseg irandomAmp, ihatdecay, 0.001
+kamp linseg irandomAmp, ihatdecay, 0.001
 ahat1 oscili kamp, gihatsfreq1, ifn
 ahat2 oscili kamp, gihatsfreq2, ifn
 
@@ -186,7 +189,10 @@ if gihatmod > 0.5 then
 	kmodfreq = 1
 endif
 
-ahp,alp,abp,abr statevar ahat1 + ahat2, gihatbpf + kmodfreq, 3 ;bandpass filter hats
+;alow, ahigh, aband svfilter ahat1 + ahat2, gihatbpf + kmodfreq, 100 
+
+MixerSend ahat1 + ahat2, 5, 97, 0
+
 
 endin 
 
@@ -202,7 +208,7 @@ endin
 
 
 instr drumsSeq, 98
-iGridRes1 = giBeatsPerSec * 4 ;grid resolution is 16th notes
+iGridRes1 = giBeatsPerSec * giMasterGridRes
 ktrig metro iGridRes1 ;metronome triggers 16th notes
 
 if ktrig = 1 then
