@@ -10,7 +10,7 @@
 <CsInstruments>
 
 sr = 48000
-ksmps = 64
+kr = 500
 nchnls = 2
 0dbfs = 1.0
 
@@ -25,14 +25,14 @@ gi6 ftgen 6,0,257,9,.5,1,270,1.5,.33,90,2.5,.2,270,3.5,.143,90;sinoid
 gi7 ftgen 7,0,129,9,.5,1,0 ;half sine
 gi8 ftgen 8,0,129,7,1,64,1,0,-1,64,-1 ;square wave
 gi9 ftgen 9,0,129,7,-1,128,1 ;actually natural
-gi10     ftgen     0, 0, 2^10, 10, 1, 0, -1/9, 0, 1/25, 0, -1/49, 0, 1/81
-gi11     ftgen     0, 0, 2^10, 10, 1, 1, 1, 1, 1, 1, 1, 1, 1
+gi10 ftgen     0, 0, 2^10, 10, 1, 0, -1/9, 0, 1/25, 0, -1/49, 0, 1/81
+gi11 ftgen     0, 0, 2^10, 10, 1, 1, 1, 1, 1, 1, 1, 1, 1
 
 ;;set mixer levels (0 to 0.9 last parameter)
-MixerSetLevel 2, 97, 0.6 ;kick
+MixerSetLevel 2, 97, 0.8 ;kick
 MixerSetLevel 3, 97, 0.8 ;snare 1
-MixerSetLevel 4, 97, 0.6 ;snare 2
-MixerSetLevel 5, 97, 0.4 ;hat
+;MixerSetLevel 4, 97, 0.6 ;snare 2
+;MixerSetLevel 5, 97, 0.4 ;hat
 
 girandomBPM init 0
 gibpm init 0
@@ -67,25 +67,25 @@ schedule 100, 0, giSequenceLength ; prime recorder
 
 ;;kick values generation
 giCounter init 0
-gikicksustain random 0.15, 2.0
-gikickfreq random 50, 100
-gikickres random 0, 0.7
+gikicksustain random 0.5, 2.0
+gikickfreq random 30, 80 ;kick freq
+gikickres random 0, 0.5 ;kick resonance
 
 ;;kick attack values
-giatkdur random gikicksustain/4, 0.005 ;attack portion < 25% of sus
-giatkfreq random 60, 300
-giatklvl random 0.4, 0.8
+giatkdur random 0.15, 0.005 ; kick attack duration
+giatkfreq random 80, 500 ;kick attack freq
+giatklvl random 0.4, 0.8 ;attack portion level
 
 ;;snare values generation
 gisnarefreq random 100, 500
-gioscfreq random 500, 1000
-gisnaredur random 1.0, 0.1 
-gisnareatk random gisnaredur*0.25, 0.15
+gioscfreq random 200, 1000 ;primary snare freq
+gisnaredur random 0.05, 0.5 
+gisnareatk random gisnaredur*0.25, 0.15 ;snare attack dur
 gisnarefiltinit random 5000, 10000
 gisnarefiltsus random 1000, 500
-gisnareres random 0.5, 0.7
-gisnpenvinit random gioscfreq, 10000 ; choose initial filt value from freq val
-gisnpenvdur random gisnaredur*.25, 0.01
+gisnareres random 0.2, 0.7
+gisnpenvinit random gioscfreq, 10000 ; choose p env init from freq val
+gisnpenvdur random gisnaredur*.25, gisnaredur ;pith env duration
 giSnaremeth random 0.2, 0.9
 
 ;;hats values generation
@@ -135,13 +135,14 @@ instr snare1, 3
 ifn  = gi1
 irandomAmp random 0.1, 0.5
 kamp expseg irandomAmp, gisnaredur, 0.001
+kampNoise expseg irandomAmp, gisnaredur*0.5, 0.001 ;make noise portion 1/2 length of snare
 ksnpenv expseg gisnpenvinit, gisnpenvdur, 0.001 ; snare pitch envelope
-asig oscili kamp, gisnarefreq, ifn
-asnare pluck kamp, gisnarefreq, gisnarefreq, 0, 3, giSnaremeth
+asnare oscili kamp, gisnarefreq, ifn
 kfiltenv expseg gisnarefiltinit, gisnareatk, gisnarefiltsus, gisnaredur-gisnareatk, gisnarefiltsus
-
-afilteredsig moogvcf2 asig + asnare, kfiltenv, gisnareres
+anoise noise kampNoise, 0
+afilteredsig moogvcf2 anoise + asnare, kfiltenv, gisnareres
 MixerSend afilteredsig, 3, 97, 0
+
 
 endin
 
