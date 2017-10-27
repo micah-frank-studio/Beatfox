@@ -40,7 +40,7 @@ giMasterGridRes = 4 ;(2=8th notes, 4=16th notes, 8=32nd notes, etc)
 ;densities
 giKickdensity random 0.7,0.99  ;0 is more dense, 1 is less - default 0.7,0.9
 giSnaredensity random 0.6,0.9  ;0 is more dense, 1 is less - default 0.6,0.9
-giHatsdensity random 0.3,0.3  ;0 is more dense, 1 is less - default 0.3,0.7
+giHatsdensity random 0.3,0.7  ;0 is more dense, 1 is less - default 0.3,0.7
 
 girandomBPM init 0
 gibpm init 0
@@ -105,7 +105,7 @@ gihatsdecaylong random 0.4, 0.3
 ;does the hi-hat modulate?
 gihatmod random 0,1
 ;pick hi-hat bpf freq
-gihatbpf random 100, 5000
+gihatbpf random 1000, 16000
 
 endin
 
@@ -120,7 +120,7 @@ kamp expseg 0.5, gikicksustain, 0.001
 
 ;;kick attack
 iatkwave = gi8 ; attack wave
-katkenv expseg giatklvl, giatkdur, 0.001 ;attack envelope
+katkenv expseg giatklvl, giatkdur, 0.01 ;attack envelope
 
 asus oscili kamp, gikickfreq*kpenv, isuswave
 aatk oscili katkenv, giatkfreq, iatkwave
@@ -153,7 +153,7 @@ instr snare2, 4
 ifn  = gi1
 irandomAmp random 0.1, 0.5
 
-iSnare2_rand1 random 0, 1
+iSnare2_rand1 random 0, 2
 iSnare2_rand2 random 0, 1
 iSnare2_rand3 random 0, 1
 
@@ -172,11 +172,11 @@ MixerSend afilteredsig, 4, 97, 0
 endin
 
 instr hats, 5
-irandomAmp random 0.0, 0.3
-;decide wheather "closed" or "open" hat
+irandomAmp random 0.1, 0.3
+;decide whether "closed" or "open" hat
 iclosedOrOpen random 0,1
 ihatdecay = iclosedOrOpen > 0.9 ? gihatsdecaylong : gihatsdecayshort
-ifn  = gi8 ;square wave
+ifn  = gi5 ;noise 
 kamp linseg irandomAmp, ihatdecay, 0.001
 ahat1 oscili kamp, gihatsfreq1, ifn
 ahat2 oscili kamp, gihatsfreq2, ifn
@@ -189,7 +189,7 @@ if gihatmod > 0.5 then
 	kmodfreq = 1
 endif
 
-;alow, ahigh, aband svfilter ahat1 + ahat2, gihatbpf + kmodfreq, 100 
+alow, ahigh, aband svfilter ahat1 + ahat2, gihatbpf + kmodfreq, 100 
 
 MixerSend ahat1 + ahat2, 5, 97, 0
 
@@ -231,7 +231,7 @@ if ktrig = 1 then
 	endif
 	
 	if kHatDecider > giHatsdensity then
-		event "i", "hats", 0, iGridRes1		
+		event "i", "hats", 0, 1		
 	endif
 	
 endif	
