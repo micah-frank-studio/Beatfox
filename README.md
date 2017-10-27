@@ -14,8 +14,6 @@ Here are some audio examples: https://soundcloud.com/micahfrank/sets/chronopolis
 
 • Load up the Beatfox.csd file, hit "Run" (command + R) and watch it go.
 
-License: Written by Micah Frank under GPLv3
-
 Disclaimer: This software is not thoroughly tested. Although it works fine on my system, Csound can have "temperamental" moments. Please try it out first with your speakers/headphones turned down.
 
 To do
@@ -31,5 +29,7 @@ To do
 • More accurate density control 
 
 • Option to create more repetitive beats
+
+License: Written by Micah Frank under GPLv3
 
 ![Alt text](https://github.com/chronopolis5k/Beatfox/blob/master/Media/chronopolis5k.JPG?raw=true "Sketching out Beatfox")
