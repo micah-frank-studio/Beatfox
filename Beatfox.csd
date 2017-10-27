@@ -31,8 +31,8 @@ gi11 ftgen     0, 0, 2^10, 10, 1, 1, 1, 1, 1, 1, 1, 1, 1
 ;;set mixer levels (0 to 0.9 last parameter)
 MixerSetLevel 2, 97, 0.8 ;kick
 MixerSetLevel 3, 97, 0.8 ;snare 1
-;MixerSetLevel 4, 97, 0.6 ;snare 2
-;MixerSetLevel 5, 97, 0.4 ;hat
+MixerSetLevel 4, 97, 0.6 ;snare 2 (tuned percussion)
+MixerSetLevel 5, 97, 0.4 ;hat
 
 girandomBPM init 0
 gibpm init 0
