@@ -6,6 +6,8 @@ It will constantly create perfectly looped rhythms that can easily be dropped in
 
 Leave it running all night, and you'll wake up with hundreds of loops in your folder!
 
+It sounds similar to a Nord Drum or modular analog drums. It can also produce some 808-ish sounds.
+
 Here are some audio examples: https://soundcloud.com/micahfrank/sets/chronopolis5k-beatfox
 
 • All you need is a Csound compiler like CSound QT https://csoundqt.github.io/
@@ -18,10 +20,16 @@ Disclaimer: This software is not thoroughly tested. Although it works fine on my
 
 To do
 
-• offline rendering
-• triplets and 32nd notes
-• rolls
-• more accurate density control 
-• option to create more repetitive beats
+• Offline rendering
+
+• Triplets and 32nd notes
+
+• Rolls
+
+• Samples
+
+• More accurate density control 
+
+• Option to create more repetitive beats
 
 ![Alt text](https://github.com/chronopolis5k/Beatfox/blob/master/Media/chronopolis5k.JPG?raw=true "Sketching out Beatfox")
