@@ -200,7 +200,7 @@ instr mixer, 97
 ;;mixer receive section
 
 	amix MixerReceive 97, 0
-	a1 limit amix, 0, 0.6 ;limit weird shit
+	a1 limit amix, -0.6, 0.6 ;limit weird shit
 	outs a1, a1
 	MixerClear
 
