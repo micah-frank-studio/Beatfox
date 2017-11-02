@@ -10,7 +10,7 @@
 <CsInstruments>
 
 sr = 48000
-kr = 500
+ksmps = 10
 nchnls = 2
 0dbfs = 1.0
 
@@ -38,7 +38,7 @@ MixerSetLevel 5, 97, 0.4 ;hat
 giMasterGridRes = 4 ;(2=8th notes, 4=16th notes, 8=32nd notes, etc)
 
 ;densities
-giKickdensity random 0.7,0.99  ;0 is more dense, 1 is less - default 0.7,0.9
+giKickdensity random 0.7,0.9  ;0 is more dense, 1 is less - default 0.7,0.9
 giSnaredensity random 0.6,0.9  ;0 is more dense, 1 is less - default 0.6,0.9
 giHatsdensity random 0.3,0.7  ;0 is more dense, 1 is less - default 0.3,0.7
 
@@ -81,7 +81,7 @@ gikickres random 0, 0.5 ;kick resonance
 
 ;;kick attack values
 giatkdur random 0.15, 0.005 ; kick attack duration
-giatkfreq random 80, 500 ;kick attack freq
+giatkfreq random 80, 200 ;kick attack freq
 giatklvl random 0.4, 0.8 ;attack portion level
 
 ;;snare values generation
