@@ -24,6 +24,8 @@ To do
 
 • Rolls
 
+• curve random parameters
+
 • Samples
 
 • More accurate density control 

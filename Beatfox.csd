@@ -219,19 +219,19 @@ if ktrig = 1 then
 	kHatDecider random 0, 1
 	
 	if kKickDecider > giKickdensity then
-		event "i", "kick", 0, iGridRes1
+		event "i", 2, 0, iGridRes1
 	endif
 	
 	if kSnare1Decider > giSnaredensity then
-		event "i", "snare1", 0, iGridRes1		
+		event "i", 3, 0, iGridRes1		
 	endif
 	
 	if kSnare2Decider > giSnaredensity then
-		event "i", "snare2", 0, iGridRes1		
+		event "i", 4, 0, iGridRes1		
 	endif
 	
 	if kHatDecider > giHatsdensity then
-		event "i", "hats", 0, 1		
+		event "i", 5, 0, 1		
 	endif
 	
 endif	
@@ -263,8 +263,8 @@ allL, allR monitor
 ;;file writing
 Sfilename sprintf "%ibpm-", gibpm
 Sfilename strcat Sfilename,Stitle 
-Sfilename strcat  Sfilename, ".aif"
-fout Sfilename, 24, allL, allR 
+Sfilename strcat  Sfilename, ".wav"
+fout Sfilename, 18, allL, allR 
 
 endin
 
